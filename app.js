@@ -53,23 +53,46 @@
     const proxy0 = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url0);
     if (roiStatus) roiStatus.textContent = '正在加载参考表（礼包标准 + 道具映射）…';
 
+    /** 解析 CSV 为行数组，支持引号内换行/逗号（Google 表格导出时单元格含换行会包在引号内） */
     function parseCsvToRows(csvText) {
       const raw = (csvText || '').replace(/^\uFEFF/, '').trim();
-      const lines = raw.split(/\r?\n/).filter(Boolean);
-      const sep = lines[0] && lines[0].includes('\t') ? '\t' : ',';
-      return lines.map((line) => {
-        const out = [];
-        let cur = '';
-        let inQ = false;
-        for (let i = 0; i < line.length; i++) {
-          const ch = line[i];
-          if (ch === '"') inQ = !inQ;
-          else if (!inQ && (ch === sep || ch === '\t')) { out.push(cur.replace(/^"|"$/g, '').trim()); cur = ''; }
-          else cur += ch;
+      if (!raw) return [];
+      const sep = raw.includes('\t') ? '\t' : ',';
+      const rows = [];
+      let row = [];
+      let field = '';
+      let inQ = false;
+      function pushField() {
+        let v = field.trim();
+        if (v.length >= 2 && v[0] === '"' && v[v.length - 1] === '"') v = v.slice(1, -1).replace(/""/g, '"');
+        row.push(v);
+        field = '';
+      }
+      for (let i = 0; i < raw.length; i++) {
+        const ch = raw[i];
+        if (ch === '"') {
+          if (inQ && raw[i + 1] === '"') { field += '"'; i++; }
+          else inQ = !inQ;
+        } else if (inQ) {
+          field += ch;
+        } else if (ch === '\r' && raw[i + 1] === '\n') {
+          pushField();
+          rows.push(row);
+          row = [];
+          i++;
+        } else if (ch === '\n' || ch === '\r') {
+          pushField();
+          rows.push(row);
+          row = [];
+        } else if (ch === sep || ch === '\t') {
+          pushField();
+        } else {
+          field += ch;
         }
-        out.push(cur.replace(/^"|"$/g, '').trim());
-        return out;
-      });
+      }
+      pushField();
+      if (row.length) rows.push(row);
+      return rows.filter((r) => r.some((c) => String(c).trim() !== ''));
     }
 
     function finishWithMapping(mapCsvText) {
