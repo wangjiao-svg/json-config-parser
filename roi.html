@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>礼包 ROI 计算表</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <a href="index.html" class="back-link">← 返回入口</a>
+      <h1>礼包 ROI 计算表</h1>
+      <p class="subtitle">直接粘贴2013表处的price内容和other_items内容，会拆解出道具id和道具数量以及roi</p>
+    </header>
+
+    <main class="main">
+      <section class="input-section">
+        <div class="toolbar">
+          <button type="button" id="formatBtn" class="btn">格式化</button>
+          <button type="button" id="clearBtn" class="btn btn-ghost">清空</button>
+        </div>
+        <textarea id="jsonInput" placeholder='粘贴或输入 JSON 数组，例如：&#10;[&#10;  { "id": 1001, "val": 10 },&#10;  { "id": 1002, "val": 5 }&#10;]'></textarea>
+        <div id="parseError" class="error-msg" hidden></div>
+
+        <div id="roiRefHidden" style="display: none;" aria-hidden="true">
+          <textarea id="standardCsv"></textarea>
+          <textarea id="mappingCsv"></textarea>
+        </div>
+        <div id="roiStatus" class="roi-status" aria-live="polite"></div>
+      </section>
+
+      <section class="output-section">
+        <div class="output-toolbar">
+          <span class="output-title">道具列表</span>
+          <button type="button" id="copyTableBtn" class="btn">一键复制</button>
+        </div>
+        <div class="table-wrapper">
+          <table id="tableOutput">
+            <thead>
+              <tr id="tableHeadRow"></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

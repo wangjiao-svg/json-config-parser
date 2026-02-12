@@ -1,0 +1,103 @@
+/* 主入口页样式 */
+:root {
+  --bg: #0f0f12;
+  --surface: #18181c;
+  --border: #2a2a32;
+  --text: #e4e4e7;
+  --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.portal {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.portal-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.portal-header h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.portal-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.portal-card {
+  display: block;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.portal-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.portal-card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--text);
+}
+
+.portal-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.portal-card .card-arrow {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.portal-card.placeholder {
+  opacity: 0.7;
+  cursor: default;
+  pointer-events: none;
+}
+
+.portal-card.placeholder:hover {
+  border-color: var(--border);
+  box-shadow: none;
+}

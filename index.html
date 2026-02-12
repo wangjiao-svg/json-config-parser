@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工具导航</title>
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+  <div class="portal">
+    <header class="portal-header">
+      <h1>工具导航</h1>
+      <p>选择下方功能进入对应工具页</p>
+    </header>
+
+    <nav class="portal-grid" aria-label="功能入口">
+      <a href="roi.html" class="portal-card">
+        <h2>礼包 ROI 计算表</h2>
+        <p>粘贴 price 与 other_items，解析道具 id/数量并计算 ROI</p>
+        <span class="card-arrow">进入 →</span>
+      </a>
+      <!-- 后续可在此追加更多入口，例如：
+      <a href="其他功能.html" class="portal-card">
+        <h2>其他功能名称</h2>
+        <p>功能简介</p>
+        <span class="card-arrow">进入 →</span>
+      </a>
+      -->
+      <div class="portal-card placeholder" aria-hidden="true">
+        <h2>更多功能</h2>
+        <p>敬请期待</p>
+      </div>
+    </nav>
+  </div>
+</body>
+</html>
